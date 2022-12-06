@@ -5,7 +5,12 @@ module.exports = {
     container: {
       padding: "2rem",
     },
-    extend: {},
+
+    extend: {
+      colors: {
+        juan: "red",
+      },
+    },
   },
   plugins: [],
 };
