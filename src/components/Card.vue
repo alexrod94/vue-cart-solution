@@ -1,14 +1,23 @@
 <template>
   <div id="card" class="flex flex-col">
-    <img src="/" class="w-full h-[250px] object-cover" />
-    <h3 class="text-2xl mt-5">Cerveza</h3>
-    <p class="mt-2">20€</p>
-    <button class="text-white py-1 px-6 mt-3 w-full bg-green-500 rounded">
-      Add to cart
-    </button>
+    <!-- Se puede hacer sin destructuring -->
+    <img :src="beer.image_url" class="w-full h-[250px] object-cover" />
+
+    <h3 class="text-xl mt-5">
+      {{
+        beer.name.length > 10 ? beer.name.substring(0, 10) + "..." : beer.name
+      }}
+    </h3>
+    <p class="text-sm">{{ beer.description.substring(0, 15) + "..." }}</p>
+    <p class="mt-2">{{ beer.ibu }}€</p>
+    {{ nombre }}
+    <Button :text="'Add to cart'" />
   </div>
 </template>
 
-<script setup></script>
+<script setup>
+import Button from "./Button.vue";
+const props = defineProps(["beer", "nombre"]);
+</script>
 
 <style></style>
