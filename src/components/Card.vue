@@ -10,13 +10,18 @@
     </h3>
     <p class="text-sm">{{ beer.description.substring(0, 15) + "..." }}</p>
     <p class="mt-2">{{ beer.ibu }}€</p>
-    <Button :text="'Add to cart'" />
+    <Button :text="'Add to cart'" @addToCart="addToCart" />
   </div>
 </template>
 
 <script setup>
 import Button from "./Button.vue";
 const props = defineProps(["beer"]);
+const emits = defineEmits(["addProduct"]);
+
+function addToCart() {
+  emits("addProduct", props.beer);
+}
 </script>
 
 <style></style>

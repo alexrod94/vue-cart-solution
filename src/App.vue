@@ -9,11 +9,16 @@
       class="text-white py-1 px-6 ml-28 bg-blue-500 rounded"
     >
       Cart
+      <span
+        class="bg-white rounded-full text-black count"
+        v-if="cartProducts.length"
+        >{{ cartProducts.length }}</span
+      >
     </button>
   </header>
-  <ProductCard v-if="show" />
+  <ProductCard v-if="show" :products="cartProducts" />
   <section class="grid grid-cols-4 container mx-auto gap-6 mt-16">
-    <Card v-for="beer in beers" :beer="beer" />
+    <Card v-for="beer in beers" :beer="beer" @add-product="addToCart" />
   </section>
 </template>
 
@@ -25,6 +30,7 @@ import Overlay from "./components/Overlay.vue";
 import { ref } from "vue";
 const beers = ref([]);
 const show = ref(false);
+const cartProducts = ref([]);
 
 async function getBeer() {
   const res = await fetch("https://api.punkapi.com/v2/beers");
@@ -37,6 +43,14 @@ getBeer();
 function showElement() {
   show.value = !show.value;
 }
+
+function addToCart(e) {
+  cartProducts.value.push(e);
+}
 </script>
 
-<style></style>
+<style scoped>
+.count {
+  padding: 0 6px;
+}
+</style>
