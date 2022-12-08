@@ -14,14 +14,25 @@
     <div v-else>
       <p>No products in the cart</p>
     </div>
-    <button class="text-white py-1 px-6 ml-28 bg-blue-500 rounded mt-5">
-      View Cart
-    </button>
+    <div class="flex justify-between items-center mt-5">
+      <button class="text-white py-1 px-6 bg-blue-500 rounded">
+        View Cart
+      </button>
+      <p>Total: {{ totalPrice }}€</p>
+    </div>
   </section>
 </template>
 
 <script setup>
+import { computed } from "vue";
 const props = defineProps(["products"]);
+
+const totalPrice = computed(() => {
+  const price = props.products.reduce((acc, curr) => {
+    return acc + curr.ibu;
+  }, 0);
+  return price;
+});
 </script>
 
 <style scoped>
